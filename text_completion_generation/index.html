@@ -5,10 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Autocompletion</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        textarea { width: 80%; height: 150px; padding: 10px; font-size: 16px; }
-        button { margin-top: 10px; padding: 10px 20px; font-size: 16px; }
-        #suggestion { margin-top: 20px; font-size: 18px; color: gray; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            }
+        textarea {
+            width: 80%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            }
+        .suggestion-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: left;
+            margin: auto;
+            }
+        .suggestion {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            background: #f9f9f9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            text-align: left;
+            }
+        .suggestion:hover {
+            background: #e0e0e0;
+            }
     </style>
 </head>
 <body>
@@ -16,9 +50,13 @@
     <textarea id="emailInput" placeholder="Start typing your email..."></textarea>
     <br>
     <button onclick="getCompletion()">Complete</button>
-    <p id="suggestion1"></p>
-    <p id="suggestion2"></p>
-    <p id="suggestion3"></p>
+
+    <div class="suggestion-box">
+        <p id="suggestion1" class="suggestion" onclick="insertSuggestion(this)"></p>
+        <p id="suggestion2" class="suggestion" onclick="insertSuggestion(this)"></p>
+        <p id="suggestion3" class="suggestion" onclick="insertSuggestion(this)"></p>
+    </div>
+
 
     <script>
         async function getCompletion() {
@@ -36,6 +74,18 @@
             document.getElementById("suggestion2").innerText = "Suggestion 2: " + suggestions[1];
             document.getElementById("suggestion3").innerText = "Suggestion 3: " + suggestions[2];
 
+        }
+
+        function insertSuggestion(element) {
+            const textarea = document.getElementById("emailInput");
+            let suggestionText = element.innerText;
+            suggestionText = suggestionText.replace(/^Suggestion \d+: /, "");
+
+            // Append suggestion to textarea with proper spacing
+            if (textarea.value.length > 0 && !textarea.value.endsWith(" ")) {
+                textarea.value += " "; // Add space if needed
+            }
+            textarea.value += suggestionText;
         }
     </script>
 </body>
