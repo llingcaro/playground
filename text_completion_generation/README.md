@@ -7,6 +7,7 @@ This project is a simple **email autocompletion tool** built using **Flask** (Py
 - 📝 **Smart text completion**: Automatically completes email drafts based on the input.
 - 🔄 **Multiple suggestions**: Generates **three different suggestions** for each input.
 - ✂ **Sentence-bound completion**: Ensures the generated text **stops at a natural sentence boundary**.
+- 🖱️ **Click-to-insert functionality**: Users can click on a suggestion to insert it directly into the email input box.
 - 🚀 **Fast and simple setup**: Runs locally with Flask and a lightweight frontend.
 
 ## Technologies Used
@@ -30,12 +31,11 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 ### 3️⃣ Install Dependencies
 ```bash
-pip install -r playground/requirements.txt
+pip install -r requirements.txt
 ```
 
 ### 4️⃣ Run the Flask Server
 ```bash
-cd playground/text_completion_generation
 python app.py
 ```
 The server will start at **http://127.0.0.1:5000/**.
@@ -43,15 +43,15 @@ The server will start at **http://127.0.0.1:5000/**.
 ### 5️⃣ Open the Web App
 - Open `index.html` in your browser.
 - Start typing in the text box and click **"Complete"** to get suggestions.
+- Click on a suggestion to insert it directly into the text box.
 
 ## Project Structure
 ```
-playground/
-│-- requirements.txt       # Python dependencies
-│-- text_completion_generation/
-    │-- app.py            # Flask backend
-    │-- index.html        # Frontend UI
-    │-- README.md         # Project documentation
+email-autocomplete/
+│-- app.py                # Flask backend
+│-- index.html            # Frontend UI
+│-- requirements.txt      # Python dependencies
+│-- README.md             # Project documentation
 ```
 
 ## API Endpoint
@@ -83,7 +83,3 @@ playground/
 
 ## License
 This project is licensed under the **MIT License**.
-
----
-🔥 **Enjoy building with AI!** 🚀
-
