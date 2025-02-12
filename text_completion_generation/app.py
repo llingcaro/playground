@@ -18,25 +18,32 @@ def complete_text():
     data = request.json
     user_input = data.get("text", "")
 
-    # Generate text completion
-    response = generator(user_input,
+    # Generate multiple text completions
+    responses = generator(user_input,
                          max_new_tokens=20,
                          do_sample=True,
                          temperature=0.7,
-                         eos_token_id=13)
+                         eos_token_id=13,
+                         num_return_sequences=3 # Generate 3 suggestions
+                         )
 
-    full_text = response[0]["generated_text"]
+    suggestions = []
 
-    # Remove the prompt
-    completion = full_text[len(user_input):].strip()
+    for response in responses:
+        full_text = response["generated_text"]
 
-    # Stop at the first period/exclamation/question mark
-    for char in [".","!","?"]:
-        if char in full_text:
-            completion = completion.split(char)[0] + char
-            break # Stop after finding the first full sentence
+        # Remove the prompt
+        completion = full_text[len(user_input):].strip()
 
-    return jsonify({"completion":completion})
+        # Stop at the first period/exclamation/question mark
+        for char in [".","!","?"]:
+            if char in full_text:
+                completion = completion.split(char)[0] + char
+                break # Stop after finding the first full sentence
+
+        suggestions.append(completion)
+
+    return jsonify({"suggestions":suggestions})
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

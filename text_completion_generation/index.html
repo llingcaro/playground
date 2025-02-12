@@ -16,7 +16,9 @@
     <textarea id="emailInput" placeholder="Start typing your email..."></textarea>
     <br>
     <button onclick="getCompletion()">Complete</button>
-    <p id="suggestion"></p>
+    <p id="suggestion1"></p>
+    <p id="suggestion2"></p>
+    <p id="suggestion3"></p>
 
     <script>
         async function getCompletion() {
@@ -27,7 +29,13 @@
                 body: JSON.stringify({ text: emailText })
             });
             const data = await response.json();
-            document.getElementById("suggestion").innerText = "Suggestion: " + data.completion;
+            const suggestions = data.suggestions;
+
+            // Display each suggestion in a separate paragraph
+            document.getElementById("suggestion1").innerText = "Suggestion 1: " + suggestions[0];
+            document.getElementById("suggestion2").innerText = "Suggestion 2: " + suggestions[1];
+            document.getElementById("suggestion3").innerText = "Suggestion 3: " + suggestions[2];
+
         }
     </script>
 </body>
